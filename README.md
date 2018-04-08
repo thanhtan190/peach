@@ -1,2 +1,2 @@
 # peach
-This project using MERN for build shopping cart.
+This project's using MERN for build shopping cart.
