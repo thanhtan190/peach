@@ -740,13 +740,15 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 
 var _redux = __webpack_require__(7);
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var reducer = function reducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { books: [] };
     var action = arguments[1];
 
     switch (action.type) {
         case 'POST_BOOK':
-            return state = action.payload;
+            return { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)) };
             break;
     }
     return state;
@@ -756,17 +758,31 @@ var store = (0, _redux.createStore)(reducer);
 
 store.subscribe(function () {
     console.log('current state is:', store.getState());
-    console.log('current price: ', store.getState().price);
 });
 
 store.dispatch({
     type: "POST_BOOK",
-    payload: {
+    payload: [{
         id: 1,
-        title: 'this is the book title',
+        title: 'book1',
         description: 'this is the book description',
-        price: 20
-    }
+        price: 30
+    }, {
+        id: 2,
+        title: 'book2',
+        description: 'this is the book description',
+        price: 50
+    }]
+});
+
+store.dispatch({
+    type: "POST_BOOK",
+    payload: [{
+        id: 3,
+        title: 'book3',
+        description: 'this is the book description',
+        price: 60
+    }]
 });
 
 /***/ }),
