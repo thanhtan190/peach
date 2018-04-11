@@ -2,16 +2,9 @@
 
 import { createStore } from "redux";
 
-const reducer = function(state={books: []}, action) {
-    switch(action.type){
-        case 'POST_BOOK':
-        return {books: [...state.books, ...action.payload]}
-        break;
-    }
-    return state
-}
+import reducers from './reducers/index';
 
-const store = createStore(reducer)
+const store = createStore(reducers)
 
 store.subscribe(function(){
     console.log('current state is:', store.getState());
@@ -33,11 +26,25 @@ store.dispatch({
 })
 
 store.dispatch({
-    type: "POST_BOOK",
+    type: "DELETE_BOOK",
+    payload: {
+        id : 1
+    }
+})
+
+store.dispatch({
+    type: "UPDATE_BOOK",
+    payload: {
+        id : 2,
+        price: 100,
+        title: 'I updated my book'
+    }
+})
+
+store.dispatch({
+    type: "ADD_TO_CART",
     payload: [{
-        id: 3,
-        title: 'book3',
-        description: 'this is the book description',
-        price: 60
+        id : 2,
+        price: 110,
     }]
 })
