@@ -1,7 +1,19 @@
 "use strict"
 
-export function booksReducers(state={books:[]}, action) {
+export function booksReducers(state={books:[{
+    id: 1,
+    title: 'book1',
+    description: 'this is the book1 description',
+    price: 30
+},{
+    id: 2,
+    title: 'book2',
+    description: 'this is the book2 description',
+    price: 50
+}]}, action) {
     switch(action.type){
+        case 'GET_BOOKS':
+            return {...state, books: [...state.books]};
         case 'POST_BOOK':
             return {books: [...state.books, ...action.payload]};
         case 'DELETE_BOOK':

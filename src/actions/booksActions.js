@@ -2,7 +2,7 @@
 
 export function getBooks() {
     return {
-        type: 'GET_BOOK'
+        type: 'GET_BOOKS'
     }
 }
 
