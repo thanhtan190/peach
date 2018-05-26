@@ -22,7 +22,6 @@ export function booksReducers(state={books:[{
                 return book.id === action.payload.id;
             });
             return {books: [...currentBookToDelete.slice(0, indexToDelete),...currentBookToDelete.slice(indexToDelete+1)]}
-            break;
         case 'UPDATE_BOOK':
             const currentBookToUpdate = [...state.books];
             const indexToUpdate = currentBookToUpdate.findIndex(function(book){
@@ -36,7 +35,6 @@ export function booksReducers(state={books:[{
                 newBookToUpdate);
 
             return {books: [...currentBookToUpdate.slice(0, indexToDelete), newBookToUpdate, ...currentBookToUpdate.slice(indexToDelete+1)]}
-            break;
     }
     return state
 }
