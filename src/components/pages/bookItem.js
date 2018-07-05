@@ -3,24 +3,43 @@ import React from 'react';
 import {Row, Col, Well, Button} from "react-bootstrap";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addToCart} from '../../actions/cartActions';
+import {addToCart, updateCart} from '../../actions/cartActions';
 
 class BookItem extends React.Component{
     handleCart(){
         const book = [...this.props.cart, {
-            id: this.props.id,
+            _id: this.props._id,
             title: this.props.title,
             description: this.props.description,
-            price: this.props.price
+            price: this.props.price,
+            quantity: 1
         }];
-        this.props.addToCart(book);
+        // check if cart is empty
+        if (this.props.cart.length > 0) {
+            // cart not empty
+            let _id = this.props._id;
+            let cartIndex = this.props.cart.findIndex(cart=>{
+                return cart._id === _id;
+            });
+            // there are no items with same id
+            if (cartIndex === -1) {
+                // just add card item
+                this.props.addToCart(book);
+            } else {
+                // update quantity cart item
+                this.props.updateCart(_id, 1);
+            }
+        } else {
+            // cart empty
+            this.props.addToCart(book);
+        }
     }
 
     render(){
-        return(
+        return (
             <Well>
                 <Row>
-                    <Col>
+                    <Col xs={12}>
                         <h6>{this.props.title}</h6>
                         <p>{this.props.description}</p>
                         <h6>usd. {this.props.price}</h6>
@@ -40,7 +59,8 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        addToCart: addToCart
+        addToCart: addToCart,
+        updateCart: updateCart
     }, dispatch)
 }
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {Well, Panel, FormControl, FormGroup, ControlLabel, Button} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { findDOMNode } from "react-dom";
 import { postBooks } from "../../actions/booksActions";
@@ -20,6 +20,7 @@ class BooksForm extends React.Component{
         return(
             <Well>
                 <Panel>
+                    <Panel.Body>
                     <FormGroup controlId="title">
                         <ControlLabel>Title</ControlLabel>
                         <FormControl
@@ -49,6 +50,7 @@ class BooksForm extends React.Component{
                         bsStyle="primary"
                         >Save book
                     </Button>
+                    </Panel.Body>
                 </Panel>
             </Well>
         )
