@@ -1,10 +1,29 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Panel, Col, Row, Well, Button, ButtonGroup, Label} from 'react-bootstrap';
+import {Panel, Col, Row, Well, Button, ButtonGroup, Label, Modal} from 'react-bootstrap';
 import {bindActionCreators} from 'redux';
 import {deleteCartItem, updateCart} from '../../actions/cartActions';
 
 class Cart extends React.Component {
+
+    constructor(){
+        super();
+        this.state = {
+            showModal: false
+        }
+    }
+
+    open() {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    close() {
+        this.setState({
+            showModal: false
+        });
+    }
 
     onDelete(_id) {
         const currentBookToDelete = this.props.cart;
@@ -73,6 +92,29 @@ class Cart extends React.Component {
                 </Panel.Heading>
                 <Panel.Body>
                     {cartItemsList}
+                    <Row>
+                        <Col xs={12}>
+                        <h6>Total amount:</h6>
+                        <Button bsStyle="success" onClick={this.open.bind(this)} bsSize="small">
+                            PROCESS CHECKOUT
+                        </Button>
+                        </Col>
+                    </Row>
+                    <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Thank you!</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <h6>Your order has been saved</h6>
+                            <p>You will receive an email confirmation!</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Col xs={6}>
+                                Total $0
+                            </Col>
+                            <Button onClick={this.close.bind(this)}>Close</Button>
+                        </Modal.Footer>
+                        </Modal>
                 </Panel.Body>
             </Panel>
         )
