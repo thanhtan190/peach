@@ -5,7 +5,7 @@ import {Well, Panel, FormControl, FormGroup, ControlLabel, Button} from 'react-b
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { findDOMNode } from "react-dom";
-import { postBooks } from "../../actions/booksActions";
+import { postBooks, deleteBooks } from "../../actions/booksActions";
 
 class BooksForm extends React.Component{
     handleSubmit(){
@@ -16,40 +16,66 @@ class BooksForm extends React.Component{
         }];
         this.props.postBooks(book);
     }
+
+    onDelete() {
+        let bookId = findDOMNode(this.refs.delete).value;
+
+        this.props.deleteBooks(bookId);
+    }
+
     render(){
+
+        const booksList = this.props.books.map(function(booksArr){
+            return (
+                <option key={booksArr._id}>{booksArr._id}</option>
+            )
+        });
+
         return(
             <Well>
                 <Panel>
                     <Panel.Body>
-                    <FormGroup controlId="title">
-                        <ControlLabel>Title</ControlLabel>
-                        <FormControl
-                            type="text"
-                            placeholder="Enter Title"
-                            ref="title"
-                        />
+                        <FormGroup controlId="title">
+                            <ControlLabel>Title</ControlLabel>
+                            <FormControl
+                                type="text"
+                                placeholder="Enter Title"
+                                ref="title"
+                            />
+                        </FormGroup>
+                        <FormGroup controlId="description">
+                            <ControlLabel>Description</ControlLabel>
+                            <FormControl
+                                type="text"
+                                placeholder="Enter Description"
+                                ref="description"
+                            />
+                        </FormGroup>
+                        <FormGroup controlId="price">
+                            <ControlLabel>Price</ControlLabel>
+                            <FormControl
+                                type="text"
+                                placeholder="Enter Price"
+                                ref="price"
+                            />
+                        </FormGroup>
+                        <Button 
+                            onClick={this.handleSubmit.bind(this)}
+                            bsStyle="primary"
+                            >Save book
+                        </Button>
+                    </Panel.Body>
+                </Panel>
+                <Panel style={{marginTop: '25px'}}>
+                    <Panel.Body>
+                    <FormGroup controlId="formControlsSelect">
+                        <ControlLabel>Select a book id to delete</ControlLabel>
+                        <FormControl ref="delete" componentClass="select" placeholder="select">
+                            <option value="select">select</option>
+                            {booksList}
+                        </FormControl>
                     </FormGroup>
-                    <FormGroup controlId="description">
-                        <ControlLabel>Description</ControlLabel>
-                        <FormControl
-                            type="text"
-                            placeholder="Enter Description"
-                            ref="description"
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="price">
-                        <ControlLabel>Price</ControlLabel>
-                        <FormControl
-                            type="text"
-                            placeholder="Enter Price"
-                            ref="price"
-                         />
-                    </FormGroup>
-                    <Button 
-                        onClick={this.handleSubmit.bind(this)}
-                        bsStyle="primary"
-                        >Save book
-                    </Button>
+                    <Button onClick={this.onDelete.bind(this)} bsStyle="danger">Delete book</Button>
                     </Panel.Body>
                 </Panel>
             </Well>
@@ -57,8 +83,14 @@ class BooksForm extends React.Component{
     }
 }
 
-function mapDispatchToProps(dispatch){
-    return bindActionCreators({postBooks}, dispatch) 
+function mapStateToProps(state) {
+    return {
+        books: state.books.books
+    }
 }
 
-export default connect(null, mapDispatchToProps)(BooksForm);
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({postBooks, deleteBooks}, dispatch) 
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksForm);
