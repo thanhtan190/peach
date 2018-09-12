@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -18,6 +18,68 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// APIs
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/Peach');
+
+const Books = require('./models/books.js');
+
+// -- POST BOOKS --
+app.post('/books', function(req, res) {
+  let book = req.body;
+
+  Books.create(book, function(err, books) {
+    if (err) throw err;
+    res.json(books);
+  });
+});
+
+// -- GET BOOKS --
+app.get('/books', function(req, res) {
+  Books.find(function(err, books) {
+    if (err) throw err;
+    debugger;
+    res.json(books);
+  });
+});
+
+// -- DELETE BOOKS --
+app.delete('/books/:_id', function(req, res) {
+  let query = {_id: req.params._id};
+  Books.remove(query, function(err, books) {
+    if (err) throw err;
+    res.json(books);
+  });
+});
+
+// -- UPDATE BOOKS --
+app.put('/books/:_id', function(req, res) {
+  let book = req.body;
+  const query = {_id: req.params._id};
+  // if the field doesn't exist $set will set a new field
+  const update = {
+    '$set': {
+      title: book.title,
+      description: book.description,
+      image: book.image,
+      price: book.price
+    }
+  }
+
+  // when true return the updated doc
+  const option = {
+    new: true
+  }
+
+  Books.findByIdAndUpdate(query, update, option, function(err, books){
+    if (err) throw err;
+    res.json(books);
+  });
+});
+
+
+// END APIs
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);

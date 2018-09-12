@@ -1,22 +1,73 @@
 'use strict'
 
+import axios from 'axios';
+
+// GET BOOK
 export function getBooks() {
-    return {
-        type: 'GET_BOOKS'
+    return function(dispatch) {
+        axios.get('/books')
+            .then(function(res) {
+                dispatch(
+                    {
+                        type: 'GET_BOOKS',
+                        payload:res.data
+                    }
+                )
+            })
+            .catch(function(err) {
+                dispatch(
+                    {
+                        type: "GET_BOOK_REJECTED",
+                        payload: err
+                    }
+                )
+            })
     }
 }
 
+// POST A BOOk
 export function postBooks(book) {
-    return {
-        type: 'POST_BOOK',
-        payload: book
+    return function(dispatch) {
+        axios.post('/books', book)
+            .then(function(res) {
+                dispatch(
+                    {
+                        type:"POST_BOOK",
+                        payload:res.data
+                    }
+                )
+            })
+            .catch(function(err) {
+                dispatch(
+                    {
+                        type: "POST_BOOK_REJECTED",
+                        payload: "there was an error while posting a new book"
+                    }
+                )
+            })
     }
 }
 
+// DELETE A BOOK
 export function deleteBooks(id) {
-    return {
-        type: 'DELETE_BOOK',
-        payload: id
+    return function(dispatch) {
+        axios.delete('/books/' + id)
+            .then(function(res) {
+                dispatch(
+                    {
+                        type:"DELETE_BOOK",
+                        payload:id
+                    }
+                )
+            })
+            .catch(function(err) {
+                dispatch(
+                    {
+                        type: "DELETE_BOOK_REJECTED",
+                        payload: err
+                    }
+                )
+            })
     }
 }
 
