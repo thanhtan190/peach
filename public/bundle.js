@@ -13303,7 +13303,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // GET BOOK
 function getBooks() {
     return function (dispatch) {
-        _axios2.default.get('/books').then(function (res) {
+        _axios2.default.get('/api/books').then(function (res) {
+            debugger;
             dispatch({
                 type: 'GET_BOOKS',
                 payload: res.data
@@ -13320,7 +13321,7 @@ function getBooks() {
 // POST A BOOk
 function postBooks(book) {
     return function (dispatch) {
-        _axios2.default.post('/books', book).then(function (res) {
+        _axios2.default.post('/api/books', book).then(function (res) {
             dispatch({
                 type: "POST_BOOK",
                 payload: res.data
@@ -13337,7 +13338,7 @@ function postBooks(book) {
 // DELETE A BOOK
 function deleteBooks(id) {
     return function (dispatch) {
-        _axios2.default.delete('/books/' + id).then(function (res) {
+        _axios2.default.delete('/api/books/' + id).then(function (res) {
             dispatch({
                 type: "DELETE_BOOK",
                 payload: id
@@ -23725,6 +23726,7 @@ var BooksList = function (_React$Component) {
         key: 'render',
         value: function render() {
             var booksList = this.props.books.map(function (booksArr) {
+                debugger;
                 return _react2.default.createElement(
                     _reactBootstrap.Col,
                     { xs: 12, sm: 6, md: 4, key: booksArr._id },

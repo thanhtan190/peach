@@ -16,6 +16,7 @@ class BooksList extends React.Component {
 
     render() {
         const booksList = this.props.books.map(function(booksArr){
+            debugger;
             return (
                 <Col xs={12} sm={6} md={4} key={booksArr._id}>
                 <BookItem 
