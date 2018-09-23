@@ -9,7 +9,7 @@ export function booksReducers(state={books:[]}, action) {
         case 'POST_BOOK_REJECTED':
             return {...state, msg:"Pleas, try again", style:"danger", validation:"error"};
         case 'RESET_BUTTON':
-            return {...state, msg:null, style:"primary", validation:"error"};
+            return {...state, msg:null, style:"primary", validation:null};
         case 'DELETE_BOOK':
             const currentBookToDelete = [...state.books];
             const indexToDelete = currentBookToDelete.findIndex(function(book){

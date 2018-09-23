@@ -13,7 +13,12 @@ app.use(cookieParser());
 // , { useNewUrlParser: true }
 // APIs
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/Peach', { useNewUrlParser: true });
+
+// MLAB DB
+mongoose.connect("mongodb://hoangthanhtan:N3wf4rm3r@ds127490.mlab.com:27490/peach", { useNewUrlParser: true });
+
+// LOCAL DB
+// mongoose.connect('mongodb://localhost:27017/Peach', { useNewUrlParser: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, "#MongoDB - connection error: "));
@@ -100,7 +105,7 @@ app.put('/books/:_id', function(req, res) {
   });
 });
 
-// -- GET BOOKS IMAGES APU --
+// -- GET BOOKS IMAGES API --
 app.get('/images', function(req, res) {
   const imgFolder = __dirname + '/public/images/';
   // require file system
