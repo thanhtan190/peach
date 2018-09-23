@@ -29,15 +29,15 @@ const store = createStore(reducers, middleware);
 const Routes = (
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/" component={Main}>
-                <IndexRoute component={BooksList} />
-                <Route path="/admin" component={BooksForm}></Route>
-                <Route path="/cart" component={Cart}></Route>
-            </Route>
+          <Route path="/" component={Main}>
+              <IndexRoute component={BooksList}/>
+              <Route path="/admin" component={BooksForm}/>
+              <Route path="/cart" component={Cart}/>
+          </Route>
         </Router>
     </Provider>
-)
-
-render (
-    Routes, document.getElementById('app')
+  )
+  
+render(
+Routes, document.getElementById('app')
 );

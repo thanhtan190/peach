@@ -5,9 +5,8 @@ import axios from 'axios';
 // GET BOOK
 export function getBooks() {
     return function(dispatch) {
-        axios.get('/api/books')
+        axios.get("/api/books")
             .then(function(res) {
-                debugger;
                 dispatch(
                     {
                         type: 'GET_BOOKS',
@@ -76,6 +75,13 @@ export function updateBooks(book) {
     return {
         type: 'UPDATE_BOOK',
         payload: book
+    }
+}
+
+// reset form button
+export function resetButton() {
+    return {
+        type: 'RESET_BUTTON',
     }
 }
 

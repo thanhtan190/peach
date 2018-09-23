@@ -1,29 +1,48 @@
+"use strict"
 var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-
-// PROXY
-const httpProxy = require('http-proxy');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 var app = express();
 
-// PROXY TO API
-const apiProxy = httpProxy.createProxyServer({
-  target: 'http://localhost:3001'
-});
-app.use('/api', function(req, res) {
-  apiProxy.web(req, res);
-});
-
-// END PROXY
-
-app.use(logger('dev'));
-
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+// , { useNewUrlParser: true }
 // APIs
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/Peach');
+mongoose.connect('mongodb://localhost:27017/Peach', { useNewUrlParser: true });
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, "#MongoDB - connection error: "));
+
+// --- Set up SESSIONS ---
+app.use(session({
+  secret: 'mySecretString',
+  saveUninitialized: false,
+  resave: false,
+  cookie: {maxAge: 1000 * 60 * 60 * 24 * 2}, // 2 days in milisecs
+  store: new MongoStore({mongooseConnection: db, ttl: 2 * 24 * 60 * 60}), // ttl: 2days * 24h * 60mins * 60secs
+}))
+
+// --- Save SESSION cart API
+app.post('/cart', function(req, res) {
+  const cart = req.body;
+  req.session.cart = cart;
+  req.session.save(function(err) {
+    if (err) throw err;
+    res.json(req.session.cart);
+  })
+});
+
+// --- Get SESSION cart API
+app.get('/cart', function(req, res) {
+  if (typeof req.session.cart !== 'undefined') {
+    res.json(req.session.cart);
+  }
+});
 
 const Books = require('./models/books.js');
 
@@ -32,7 +51,7 @@ app.post('/books', function(req, res) {
   let book = req.body;
 
   Books.create(book, function(err, books) {
-    if (err) throw err;
+    if (err) console.log("POST BOOKS ERROR ---------- ", err);
     res.json(books);
   });
 });
@@ -40,8 +59,9 @@ app.post('/books', function(req, res) {
 // -- GET BOOKS --
 app.get('/books', function(req, res) {
   Books.find(function(err, books) {
-    console.log("this is how books looks like", books)
-    if (err) throw err;
+    if (err) {
+      console.log("GET BOOKS ERROR ---------- ", err);
+    }
     res.json(books);
   });
 });
@@ -50,7 +70,7 @@ app.get('/books', function(req, res) {
 app.delete('/books/:_id', function(req, res) {
   let query = {_id: req.params._id};
   Books.remove(query, function(err, books) {
-    if (err) throw err;
+    if (err) console.log("DELETE BOOKS ERROR ---------- ", err);
     res.json(books);
   });
 });
@@ -75,11 +95,29 @@ app.put('/books/:_id', function(req, res) {
   }
 
   Books.findByIdAndUpdate(query, update, option, function(err, books){
-    if (err) throw err;
+    if (err) console.log("UPDATE BOOKS ERROR ---------- " + err);
     res.json(books);
   });
 });
 
+// -- GET BOOKS IMAGES APU --
+app.get('/images', function(req, res) {
+  const imgFolder = __dirname + '/public/images/';
+  // require file system
+  const fs = require('fs');
+  // read all files in the directory
+  fs.readdir(imgFolder, function(err, files) {
+    if (err) return console.log(err);
+    // create an empty array;
+    const filesArr = [];
+    files.forEach(function(file){
+      filesArr.push({name: file});
+    });
+
+    res.json(filesArr);
+  })
+
+})
 
 // END APIs
 
