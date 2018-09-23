@@ -10,7 +10,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// , { useNewUrlParser: true }
+
 // APIs
 const mongoose = require('mongoose');
 
