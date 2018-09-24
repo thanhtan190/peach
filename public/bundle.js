@@ -23891,13 +23891,18 @@ var _booksForm = __webpack_require__(150);
 
 var _booksForm2 = _interopRequireDefault(_booksForm);
 
+var _about = __webpack_require__(575);
+
+var _about2 = _interopRequireDefault(_about);
+
 var _main = __webpack_require__(282);
 
 var _main2 = _interopRequireDefault(_main);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Component
+// React Route
+
 var routes = _react2.default.createElement(
     _reactRouter.Router,
     { history: _reactRouter.browserHistory },
@@ -23905,13 +23910,13 @@ var routes = _react2.default.createElement(
         _reactRouter.Route,
         { path: '/', component: _main2.default },
         _react2.default.createElement(_reactRouter.IndexRoute, { component: _booksList2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/about', component: _about2.default }),
         _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _booksForm2.default }),
         _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _cart2.default })
     )
 );
 
-// React Route
-
+// Component
 exports.default = routes;
 
 /***/ }),
@@ -24989,11 +24994,6 @@ var Menu = function (_React$Component) {
                     _react2.default.createElement(
                         _reactBootstrap.Nav,
                         null,
-                        _react2.default.createElement(
-                            _reactBootstrap.NavItem,
-                            { eventKey: 2, href: '/contact' },
-                            'Contact'
-                        ),
                         _react2.default.createElement(
                             _reactBootstrap.NavItem,
                             { eventKey: 3, href: '/about' },
@@ -50501,6 +50501,286 @@ module.exports = function(originalModule) {
 	return module;
 };
 
+
+/***/ }),
+/* 575 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(58);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var About = function (_React$Component) {
+    _inherits(About, _React$Component);
+
+    function About() {
+        _classCallCheck(this, About);
+
+        return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
+    }
+
+    _createClass(About, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { id: "cv", className: "instaFade" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "mainDetails" },
+                    _react2.default.createElement(
+                        "div",
+                        { id: "headshot", className: "quickFade" },
+                        _react2.default.createElement(_reactBootstrap.Image, { src: "/staticImages/me.jpg", width: 100, height: 100, responsive: true, alt: "Hoang Thanh Tan" })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { id: "name" },
+                        _react2.default.createElement(
+                            "h1",
+                            { className: "quickFade delayTwo" },
+                            "Hoang Thanh Tan"
+                        ),
+                        _react2.default.createElement(
+                            "h2",
+                            { className: "quickFade delayThree" },
+                            "Software Developer"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { id: "contactDetails", className: "quickFade delayFour" },
+                        _react2.default.createElement(
+                            "ul",
+                            null,
+                            _react2.default.createElement(
+                                "li",
+                                null,
+                                _react2.default.createElement(
+                                    "a",
+                                    { href: "mailto:thanhtan190@gmail.com", target: "_blank" },
+                                    _react2.default.createElement("i", { className: "fas fa-envelope-square" }),
+                                    "   thanhtan190@gmail.com"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                "li",
+                                null,
+                                _react2.default.createElement(
+                                    "a",
+                                    { href: "https://github.com/thanhtan190" },
+                                    _react2.default.createElement("i", { className: "fab fa-github" }),
+                                    "  Thanh Tan Hoang"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                "li",
+                                null,
+                                _react2.default.createElement("i", { className: "fas fa-phone" }),
+                                "  07028300398"
+                            )
+                        )
+                    ),
+                    _react2.default.createElement("div", { className: "clear" })
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { id: "mainArea", className: "quickFade delayFive" },
+                    _react2.default.createElement(
+                        "section",
+                        null,
+                        _react2.default.createElement(
+                            "article",
+                            null,
+                            _react2.default.createElement(
+                                "div",
+                                { className: "sectionTitle" },
+                                _react2.default.createElement(
+                                    "h1",
+                                    null,
+                                    "Personal Profile"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                "div",
+                                { className: "sectionContent" },
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "I am currently working on a web application as data analysis solution project. In this project I have been able to learn how to write code efficiently in a team, improve legacy code and implement new features according to the client\u2019s needs. I was also able to increase my expertise in Javascript and improve my understanding of how the layers of a large project come together. I would like to improve on these skills and learn new ones with incoming challenge."
+                                )
+                            )
+                        ),
+                        _react2.default.createElement("div", { className: "clear" })
+                    ),
+                    _react2.default.createElement(
+                        "section",
+                        null,
+                        _react2.default.createElement(
+                            "div",
+                            { className: "sectionTitle" },
+                            _react2.default.createElement(
+                                "h1",
+                                null,
+                                "Work Experience"
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "sectionContent" },
+                            _react2.default.createElement(
+                                "article",
+                                null,
+                                _react2.default.createElement(
+                                    "h2",
+                                    null,
+                                    "Front End Developer at Keepdata"
+                                ),
+                                _react2.default.createElement(
+                                    "p",
+                                    { className: "subDetails" },
+                                    "January 2017 - Present"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                "article",
+                                null,
+                                _react2.default.createElement(
+                                    "h2",
+                                    null,
+                                    "Software Developer at FPT Software HCM"
+                                ),
+                                _react2.default.createElement(
+                                    "p",
+                                    { className: "subDetails" },
+                                    "August 2014 - May 2016"
+                                )
+                            )
+                        ),
+                        _react2.default.createElement("div", { className: "clear" })
+                    ),
+                    _react2.default.createElement(
+                        "section",
+                        null,
+                        _react2.default.createElement(
+                            "div",
+                            { className: "sectionTitle" },
+                            _react2.default.createElement(
+                                "h1",
+                                null,
+                                "Key Skills"
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "sectionContent" },
+                            _react2.default.createElement(
+                                "ul",
+                                { className: "keySkills" },
+                                _react2.default.createElement(
+                                    "li",
+                                    null,
+                                    "Javascript"
+                                ),
+                                _react2.default.createElement(
+                                    "li",
+                                    null,
+                                    "HTML"
+                                ),
+                                _react2.default.createElement(
+                                    "li",
+                                    null,
+                                    "CSS"
+                                ),
+                                _react2.default.createElement(
+                                    "li",
+                                    null,
+                                    "Golang"
+                                ),
+                                _react2.default.createElement(
+                                    "li",
+                                    null,
+                                    "PHP"
+                                ),
+                                _react2.default.createElement(
+                                    "li",
+                                    null,
+                                    "Java"
+                                ),
+                                _react2.default.createElement(
+                                    "li",
+                                    null,
+                                    "Japanese N2"
+                                ),
+                                _react2.default.createElement(
+                                    "li",
+                                    null,
+                                    "TOIEC 550"
+                                )
+                            )
+                        ),
+                        _react2.default.createElement("div", { className: "clear" })
+                    ),
+                    _react2.default.createElement(
+                        "section",
+                        null,
+                        _react2.default.createElement(
+                            "div",
+                            { className: "sectionTitle" },
+                            _react2.default.createElement(
+                                "h1",
+                                null,
+                                "Education"
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "sectionContent" },
+                            _react2.default.createElement(
+                                "article",
+                                null,
+                                _react2.default.createElement(
+                                    "h2",
+                                    null,
+                                    "University of Science"
+                                ),
+                                _react2.default.createElement(
+                                    "p",
+                                    { className: "subDetails" },
+                                    "Bachelor"
+                                )
+                            )
+                        ),
+                        _react2.default.createElement("div", { className: "clear" })
+                    )
+                )
+            );
+        }
+    }]);
+
+    return About;
+}(_react2.default.Component);
+
+exports.default = About;
 
 /***/ })
 /******/ ]);
